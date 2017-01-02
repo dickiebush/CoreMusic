@@ -33,6 +33,7 @@ def twilio_client():
 
 client = twilio_client()
 
+print("this is running")
 base_url = "http://hotnewhiphop.com"
 twilio_number = "+18133363411"
 
