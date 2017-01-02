@@ -2,8 +2,8 @@ from twilio.rest import TwilioRestClient as TRC
 from lxml import html
 import requests
 import pandas as pd
-from models import Song
-from routes import db
+from models import Song, db
+from routes import app
 #from routes import conn
 
 
@@ -25,6 +25,7 @@ def try_to_text(row):
 
     # parse the soundcloud player url 
     try:
+
         # find soundcloud player and extra the link it send you to
         soundcloud_url = html.fromstring(hnhh_html.content).get_element_by_id("soundcloud_player")
         soundcloud_html = str(requests.get(soundcloud_url.attrib['src']).content)
@@ -37,14 +38,15 @@ def try_to_text(row):
         # create url for opening in soundcloud app
         url = ("soundcloud://tracks/{}".format(id))
     except:
-        print("no soundcloud avaiable")
         url = row.url
     # if any of my artists are the artist of this current row, send me a text with the song name and link
     if (any([artist in row.artist for artist in my_artists])):
         body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
         # send text message currently to me only 
         client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
-        print("sent a text")
+        print("Found your song, sent a text")
+    else:
+        print("New song was not good")
    
 
 def twilio_client():
@@ -58,6 +60,7 @@ def twilio_client():
 
 def run_script(db):
     
+
     base_url = "http://hotnewhiphop.com"
     
     # css/html tags for html parsing
@@ -90,8 +93,9 @@ def run_script(db):
     urls = [''.join([base_url,url]) for url in urls]
    
 
-    # read in all songs we have already texted about
-    old_master_list = pd.read_sql("select * from songs", con=db.engine)
+    with app.app_context():
+        # read in all songs we have already texted about
+        old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
     
 
@@ -122,7 +126,7 @@ def run_script(db):
     #db.session.commit()
     # write to CSV for later iteration 
     #new_master_list.to_csv("master_list.csv")
-    print("made it to here")
-    new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
+    with app.app_context():
+        new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
 
-    
+run_script(db)
