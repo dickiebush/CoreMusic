@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     # Extensions like Flask-SQLAlchemy now know what the "current" app
     # is while within this block. Therefore, you can now run........
 db = SQLAlchemy(app)
+db.create_all()
 
 #from models import Song
 import core
