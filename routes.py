@@ -9,7 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/songs'
     # is while within this block. Therefore, you can now run........
 db.init_app(app)
 
-#core.run_script(conn,db)
 @app.route("/")
 def index():
     core.run_script(db)
