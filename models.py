@@ -1,4 +1,3 @@
-from flask_sqlalchemy import SQLAlchemy
 from routes import db
 
 class Song(db.Model):
