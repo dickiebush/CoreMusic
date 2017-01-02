@@ -88,18 +88,20 @@ def run_script(db):
     # add base url to all song link URLs
     urls = [''.join([base_url,url]) for url in urls]
    
-    # read in all songs we have already texted about
-    old_master_list = pd.read_sql("select * from songs", con=db.engine)
-
     new_song = song("hey", "hii", "yooo")
     db.session.add(new_song)
     db.session.commit()
+    
+    # read in all songs we have already texted about
+    old_master_list = pd.read_sql("select * from songs", con=db.engine)
+
+    
 
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
 
-    print(new_master_list)
+   #print(new_master_list)
     #print(old_master_list)
     # remove all songs we have already seen previously 
     ## this needs to remove the corresponding artist and song and URL 
