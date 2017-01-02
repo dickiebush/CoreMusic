@@ -55,7 +55,7 @@ def twilio_client():
 #    begin script    #
 ######################
 
-def run_script(db=None):
+def run_script(db):
     
     base_url = "http://hotnewhiphop.com"
     
