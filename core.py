@@ -33,7 +33,7 @@ def try_to_text(row):
         end   = soundcloud_html.find("\"", start)
         id    = soundcloud_html[start:end]
 
-        # create url for opening in soundcloud app 
+        # create url for opening in soundcloud app
         url = ("soundcloud://tracks/{}".format(id))
     except:
         print("no soundcloud avaiable")
@@ -88,10 +88,8 @@ def run_script(db):
     # add base url to all song link URLs
     urls = [''.join([base_url,url]) for url in urls]
    
-    
     # read in all songs we have already texted about
     old_master_list = pd.read_sql("select * from songs", con=db.engine)
-
 
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
