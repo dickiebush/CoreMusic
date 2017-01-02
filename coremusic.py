@@ -7,7 +7,7 @@ import pandas as pd
 #  helper functions #
 #####################
 def try_to_text(row):
-    
+
     ## what will change here is we will iterate over every customer and change my_artists
     ## to be their list of artists they like, and then send it to their phone number
     ## not a big change at all
@@ -20,8 +20,7 @@ def try_to_text(row):
         # send text message currently to me only 
         client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
         print("sent a text")
-    else:
-        print("No new songs from artists you like")
+   
 
 def twilio_client():
     account_sid   = "AC79432a906b5df034fa4604d80dee6079"
@@ -65,7 +64,7 @@ songs = [song.replace(u"\xa0", u" ") for song in songs]
 
 # add base url to all song link URLs
 urls = [''.join([base_url,url]) for url in urls]
-
+ 
 # read in all songs we have already texted about
 old_master_list = pd.read_csv("master_list.csv")
 
