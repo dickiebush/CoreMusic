@@ -88,7 +88,7 @@ def run_script(db):
     # add base url to all song link URLs
     urls = [''.join([base_url,url]) for url in urls]
    
-    new_song = song("hey", "hii", "yooo")
+    new_song = Song("hey", "hii", "yooo")
     db.session.add(new_song)
     db.session.commit()
 
