@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from models import db, song
+from models import db, Song
 import core
 
 # magical incantations 
@@ -11,7 +11,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    
+
     core.run_script(db)
     return ("Bout to run some shit nigga")
 
