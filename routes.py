@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from models import db, Song
 import os
-
+import core
 
 # magical incantations 
 app = Flask(__name__)
@@ -19,8 +19,14 @@ with app.app_context():
 @app.route("/")
 def index():
 
- #   core.run_script(db)
     return ("Bout to run some shit nigga")
+
+@app.route("/run")
+def run():
+    core.run_script(db)
+    return("process done")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

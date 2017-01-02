@@ -125,4 +125,4 @@ def run_script(db):
     print("made it to here")
     new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
 
-run_script(db)
+    
