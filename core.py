@@ -88,9 +88,6 @@ def run_script(db):
     # add base url to all song link URLs
     urls = [''.join([base_url,url]) for url in urls]
    
-    new_song = Song("hey", "hii", "yooo")
-    db.session.add(new_song)
-    db.session.commit()
 
     # read in all songs we have already texted about
     old_master_list = pd.read_sql("select * from songs", con=db.engine)
