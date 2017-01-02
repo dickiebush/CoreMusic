@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from models import db
+from models import db, Song
 import os
 import core
 
@@ -10,6 +10,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     # is while within this block. Therefore, you can now run........
 
 db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 
 #from models import Song
 @app.route("/")
