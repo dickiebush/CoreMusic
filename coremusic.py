@@ -69,6 +69,8 @@ urls = [''.join([base_url,url]) for url in urls]
 # read in all songs we have already texted about
 old_master_list = pd.read_csv("master_list.csv")
 
+print(old_master_list)
+
 # create data frame of all songs on website, as these are latest songs we've analyzed 
 new_master_list = pd.DataFrame({'artists': artists, 'song_names': songs, "links":urls})
 
