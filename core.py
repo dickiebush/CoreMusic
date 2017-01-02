@@ -24,6 +24,7 @@ def try_to_text(row):
 
     # parse the soundcloud player url 
     try:
+        # find soundcloud player and extra the link it send you to
         soundcloud_url = html.fromstring(hnhh_html.content).get_element_by_id("soundcloud_player")
         soundcloud_html = str(requests.get(soundcloud_url.attrib['src']).content)
 
@@ -32,6 +33,7 @@ def try_to_text(row):
         end   = soundcloud_html.find("\"", start)
         id    = soundcloud_html[start:end]
 
+        # create url for opening in soundcloud app 
         url = ("soundcloud://tracks/{}".format(id))
     except:
         print("no soundcloud avaiable")
@@ -87,9 +89,9 @@ def run_script(db=None):
     urls = [''.join([base_url,url]) for url in urls]
    
     # read in all songs we have already texted about
-    #old_master_list = pd.read_sql("select * from songs", con=db.engine)
+    old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
-    old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
+    #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'artists': artists, 'song_names': songs, "links":urls})
 
@@ -113,8 +115,5 @@ def run_script(db=None):
     #db.session.add(new_song)
     #db.session.commit()
     # write to CSV for later iteration 
-    new_master_list.to_csv("master_list.csv")
-    #new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
-
-
-run_script()
+    #new_master_list.to_csv("master_list.csv")
+    new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
