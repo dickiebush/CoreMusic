@@ -4,9 +4,9 @@ db = SQLAlchemy()
 
 class song(db.Model):
     __tablename__ = 'songs'
-    url       = db.Column(db.String(150), primary_key = True)
+    url      = db.Column(db.String(150), primary_key = True)
     song_name = db.Column(db.String(150))
-    artist    = db.Column(db.String(150))
+    artist   = db.Column(db.String(150))
 
     def __init__(self, url, song_name, artist):
         self.url = url.lower()

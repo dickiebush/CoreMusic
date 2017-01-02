@@ -20,7 +20,7 @@ def try_to_text(row):
     my_artists = ["Young Thug", "A$AP Rocky", "Migos", "2 Chainz", "Quavo", "Lil Uzi Vert", "Gucci Mane", "Migos", "Wiz Khalifa", "Drake", "Future", "21 Savage", "Lil Yachty", "Post Malone", "J. Cole"]
 
     # open up hnhh link 
-    hnhh_html = requests.get(row.links)
+    hnhh_html = requests.get(row.url)
 
     # parse the soundcloud player url 
     try:
@@ -37,10 +37,10 @@ def try_to_text(row):
         url = ("soundcloud://tracks/{}".format(id))
     except:
         print("no soundcloud avaiable")
-        url = row.links
+        url = row.url
     # if any of my artists are the artist of this current row, send me a text with the song name and link
-    if (any([artist in row.artists for artist in my_artists])):
-        body = "{} dropped a new song called {}, heres the link {}".format(row.artists, row.song_names, url)
+    if (any([artist in row.artist for artist in my_artists])):
+        body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
         # send text message currently to me only 
         client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
         print("sent a text")
@@ -91,19 +91,25 @@ def run_script(db):
     # read in all songs we have already texted about
     old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
+    new_song = song("hey", "hii", "yooo")
+    db.session.add(new_song)
+    db.session.commit()
+
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
-    new_master_list = pd.DataFrame({'artists': artists, 'song_names': songs, "links":urls})
+    new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
 
+    print(new_master_list)
+    #print(old_master_list)
     # remove all songs we have already seen previously 
     ## this needs to remove the corresponding artist and song and URL 
-    artists    = [artist for url,artist in zip(urls,artists) if url not in old_master_list.links.values]
-    songs      = [song   for song in songs if song not in old_master_list.song_names.values]
-    urls       = [url for url in urls if url not in old_master_list.links.values]
+    artists    = [artist for url,artist in zip(urls,artists) if url not in old_master_list.url.values]
+    songs      = [song   for song in songs if song not in old_master_list.song_name.values]
+    urls       = [url for url in urls if url not in old_master_list.url.values]
     
 
     # new songs with only new songs we havent seen
-    new_songs = pd.DataFrame({'artists': artists, 'song_names': songs, "links":urls})
+    new_songs = pd.DataFrame({'url': urls, 'song_name': songs, 'artist':artists})
 
     # send texts for all those songs
     if len(new_songs > 0):
@@ -116,4 +122,5 @@ def run_script(db):
     #db.session.commit()
     # write to CSV for later iteration 
     #new_master_list.to_csv("master_list.csv")
+    print("made it to here")
     new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')

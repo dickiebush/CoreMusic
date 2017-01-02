@@ -11,6 +11,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
+    
     core.run_script(db)
     return ("Bout to run some shit nigga")
 
