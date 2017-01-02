@@ -3,6 +3,7 @@ from lxml import html
 import requests
 import pandas as pd
 from models import Song
+from routes import db
 #from routes import conn
 
 
@@ -123,3 +124,5 @@ def run_script(db):
     #new_master_list.to_csv("master_list.csv")
     print("made it to here")
     new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
+
+run_script(db)
