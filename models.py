@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-class song(db.Model):
+class Song(db.Model):
     __tablename__ = 'songs'
     url      = db.Column(db.String(150), primary_key = True)
     song_name = db.Column(db.String(150))

@@ -2,7 +2,7 @@ from twilio.rest import TwilioRestClient as TRC
 from lxml import html
 import requests
 import pandas as pd
-from models import song
+from models import Song
 #from routes import conn
 
 
@@ -91,7 +91,7 @@ def run_script(db):
     new_song = song("hey", "hii", "yooo")
     db.session.add(new_song)
     db.session.commit()
-    
+
     # read in all songs we have already texted about
     old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
