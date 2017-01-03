@@ -11,16 +11,20 @@ import re
 #####################
 #  helper functions #
 #####################
+
+def text_new_user(user):
+    client = twilio_client()
+    twilio_number = "+18133363411"
+
+    body = "{} just signed up. Their number is {}. Their email is {}".format(user.name, user.number, user.email)
+    
+    # send text message currently to me only 
+    client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
+
 def try_to_text(row):
 
     client = twilio_client()
     twilio_number = "+18133363411"
-    ## what will change here is we will iterate over every customer and change my_artists
-    ## to be their list of artists they like, and then send it to their phone number
-    ## not a big change at all
-    ## LEFTOFF
-
-    #["Young Thug", "A$AP Rocky", "Migos", "2 Chainz", "Quavo", "Lil Uzi Vert", "Gucci Mane", "Migos", "Wiz Khalifa", "Drake", "Future", "21 Savage", "Lil Yachty", "Post Malone", "J. Cole"]
 
     # open up hnhh link 
     hnhh_html = requests.get(row.url)

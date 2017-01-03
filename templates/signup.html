@@ -10,31 +10,28 @@
             {{ form.hidden_tag() }}
 
             <div class="form-group">
-            {{ form.name.label }}
-
+          
             {% if form.name.errors %}
                 {% for error in form.name.errors %}
                 <p class="error-message"> {{ error }} </p>
                 {% endfor %}
             {% endif %}
 
-            {{ form.name }}
+            {{ form.name(placeholder="Full Name", style="width: 275px", class_="form-control")}} 
             </div>
 
             <div class="form-group">
-            {{ form.email.label }}
-
+           
             {% if form.email.errors %}
                 {% for error in form.email.errors %}
                 <p class="error-message"> {{ error }} </p>
                 {% endfor %}
             {% endif %}
 
-            {{ form.email }}
+            {{ form.email(placeholder="Email", style="width: 275px", class_="form-control")}}
             </div>
 
             <div class="form-group">
-            {{ form.number.label }}
 
             {% if form.number.errors %}
                 {% for error in form.number.errors %}
@@ -42,11 +39,11 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.number }}
+            {{ form.number(placeholder="Phone number ", style="width: 275px", class_="form-control")}}
             </div>
 
             <div class="form-group">
-            {{ form.artists.label }}
+            
 
             {% if form.artists.errors %}
                 {% for error in form.artists.errors %}
@@ -54,10 +51,10 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.artists }}
+            {{ form.artists(placeholder="Enter your 5 favorite artists, separated by commas", style="width: 275px", class_="form-control")}} 
             </div>
 
-            {{ form.submit(class="btn-primary")}}
+            {{ form.submit(class="btn-success")}}
 
             </form>
             </div>

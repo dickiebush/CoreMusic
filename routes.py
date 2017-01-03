@@ -3,7 +3,9 @@ from models import db, Song, User
 import os
 from forms import SignupForm
 import requests
-#import core
+
+# link to database used for heroku 
+# DATABASE_URL=$(heroku config:get DATABASE_URL -a coremusic)
 
 # magical incantations 
 app = Flask(__name__)
@@ -23,7 +25,6 @@ with app.app_context():
 def index():
     return redirect(url_for('signup'))
 
-
 @app.route("/signup", methods=['GET','POST'])
 def signup():
     form = SignupForm()
@@ -33,6 +34,7 @@ def signup():
             return render_template('signup.html', form=form)
         else: 
             user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title())
+            # text me that a new user signed up somehow asynchronously 
             with app.app_context():
                 db.session.add(user)
                 db.session.commit()
