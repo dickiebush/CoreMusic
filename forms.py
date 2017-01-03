@@ -8,7 +8,7 @@ class SignupForm(FlaskForm):
     number = StringField('Phone Number:', validators=[validators.DataRequired("Please enter your phone number"), \
                          validators.Length(10,10,"Please enter a 10 digit phone number"), \
                          validators.Regexp('[0-9]{10}')])
-    artists = TextAreaField('Enter your 5 favorite music artists, separated by commas', validators=[validators.DataRequired("Please enter your favorite artists")])
+    artists = TextAreaField('Enter your favorite music artists, separated by commas', validators=[validators.DataRequired("Please enter your favorite artists")])
     submit = SubmitField("Subscribe")
 
 
