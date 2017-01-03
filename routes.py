@@ -38,9 +38,15 @@ def signup():
             with app.app_context():
                 db.session.add(user)
                 db.session.commit()
-            return "Welcome to Core Music!"
+            return redirect(url_for('welcome'))
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
+
+# handle that you cant access this without being logged in 
+@app.route("/welcome")
+def welcome():
+    return(render_template('welcome.html'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
