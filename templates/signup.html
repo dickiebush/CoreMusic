@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<center>
+    <main class="container signup-section">
+        <div class="section-content">
+            <h2> Subscribe to the Beta </h2>
+
+            <form method="POST" action="/signup">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+            {{ form.name.label }}
+
+            {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                <p class="error-message"> {{ error }} </p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.name }}
+            </div>
+
+            <div class="form-group">
+            {{ form.email.label }}
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                <p class="error-message"> {{ error }} </p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.email }}
+            </div>
+
+            <div class="form-group">
+            {{ form.number.label }}
+
+            {% if form.number.errors %}
+                {% for error in form.number.errors %}
+                <p class="error-message"> {{ error }} </p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.number }}
+            </div>
+
+            <div class="form-group">
+            {{ form.artists.label }}
+
+            {% if form.artists.errors %}
+                {% for error in form.artists.errors %}
+                <p class="error-message"> {{ error }} </p>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.artists }}
+            </div>
+
+            {{ form.submit(class="btn-primary")}}
+
+            </form>
+            </div>
+
+</main>
+
+
+{% endblock %}

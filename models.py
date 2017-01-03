@@ -15,3 +15,19 @@ class Song(db.Model):
 
     def __str__(self):
         return self.url
+
+class User(db.Model):
+    __tablename__ = 'users'
+    email  = db.Column(db.String(150), primary_key = True)
+    name   = db.Column(db.String(150))
+    number = db.Column(db.String(15))
+    artists = db.Column(db.String(250))
+
+    def __init__(self, email, name, number, artists):
+        self.email   = email
+        self.name    = name
+        self.number  = number
+        self.artists = artists
+
+    def __str__(self):
+        return self.email

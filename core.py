@@ -97,8 +97,6 @@ def run_script(db):
         # read in all songs we have already texted about
         old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
-    
-
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
