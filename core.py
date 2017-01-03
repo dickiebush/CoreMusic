@@ -2,8 +2,9 @@ from twilio.rest import TwilioRestClient as TRC
 from lxml import html
 import requests
 import pandas as pd
-from models import Song, db
+from models import Song, db, User
 from routes import app
+import re
 #from routes import conn
 
 
@@ -18,7 +19,8 @@ def try_to_text(row):
     ## to be their list of artists they like, and then send it to their phone number
     ## not a big change at all
     ## LEFTOFF
-    my_artists = ["Young Thug", "A$AP Rocky", "Migos", "2 Chainz", "Quavo", "Lil Uzi Vert", "Gucci Mane", "Migos", "Wiz Khalifa", "Drake", "Future", "21 Savage", "Lil Yachty", "Post Malone", "J. Cole"]
+
+    #["Young Thug", "A$AP Rocky", "Migos", "2 Chainz", "Quavo", "Lil Uzi Vert", "Gucci Mane", "Migos", "Wiz Khalifa", "Drake", "Future", "21 Savage", "Lil Yachty", "Post Malone", "J. Cole"]
 
     # open up hnhh link 
     hnhh_html = requests.get(row.url)
@@ -39,14 +41,21 @@ def try_to_text(row):
         url = ("soundcloud://tracks/{}".format(id))
     except:
         url = row.url
-    # if any of my artists are the artist of this current row, send me a text with the song name and link
-    if (any([artist in row.artist for artist in my_artists])):
-        body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
-        # send text message currently to me only 
-        client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
-        print("Found your song, sent a text")
-    else:
-        print("New song was not good")
+
+    with app.app_context():
+
+        for user in User.query.all():
+
+            user_artists = re.split(',\s*', user.artists)
+            print(user_artists)
+            # if any of my artists are the artist of this current row, send me a text with the song name and link
+            if (any([artist in row.artist for artist in user_artists])):
+                body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
+                # send text message currently to me only 
+                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                print("Found your song, sent a text to {}".format(user))
+            else:
+                print("New song was not good")
    
 
 def twilio_client():
