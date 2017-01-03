@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<center>
-    <main class="container signup-section">
-        <div class="section-content">
+    <main class="container container--nr">
+        <div class="noauth__form-container">
             <h2> Subscribe to the Beta </h2>
-
+            <p class="lead"> Make your account </p>
             <form method="POST" action="/signup">
             {{ form.hidden_tag() }}
 
@@ -17,7 +16,9 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.name(placeholder="Full Name", style="width: 275px", class_="form-control")}} 
+            {{ form.name.label(style="font-size:13px") }}
+
+            {{ form.name(placeholder="Your full name",  class_="form-control input-lg")}} 
             </div>
 
             <div class="form-group">
@@ -28,7 +29,8 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.email(placeholder="Email", style="width: 275px", class_="form-control")}}
+            {{ form.email.label(style="font-size:13px") }}
+            {{ form.email(placeholder="name@company.com", class_="form-control input-lg")}}
             </div>
 
             <div class="form-group">
@@ -39,7 +41,8 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.number(placeholder="Phone number ", style="width: 275px", class_="form-control")}}
+            {{ form.number.label(style="font-size:13px") }}
+            {{ form.number(placeholder="8135559026", class_="form-control input-lg")}}
             </div>
 
             <div class="form-group">
@@ -51,13 +54,15 @@
                 {% endfor %}
             {% endif %}
 
-            {{ form.artists(placeholder="Enter your 5 favorite artists, separated by commas", style="width: 275px", class_="form-control")}} 
+            {{ form.artists.label(style="font-size:13px") }}
+            {{ form.artists(placeholder="Enter your 5 favorite artists, separated by commas", class_="form-control input-lg")}} 
             </div>
 
-            {{ form.submit(class="btn-success")}}
+            {{ form.submit(class="btn btn-primary btn-lg btn-block")}}
 
             </form>
             </div>
+            
 
 </main>
 
