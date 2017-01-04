@@ -55,28 +55,25 @@ def try_to_text(row):
             print("found neither, redirecting to hnhh")
             url = row.url
 
+    with app.app_context():
 
+        for user in User.query.all():
 
-    print(url)
-    #with app.app_context():
-
-        # for user in User.query.all():
-
-        #     if user.artists.lower() == 'rap':
-        #         user_artists = ["Lil Yachty", "Travi$ Scott", "A$AP Rocky", "Kendrick Lamar", "Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
-        #         "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
-        #         "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
-        #     else:
-        #         user_artists = re.split(',\s*', user.artists)
+            if user.artists.lower() == 'rap':
+                user_artists = ["Lil Yachty", "Travi$ Scott", "A$AP Rocky", "Kendrick Lamar", "Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
+                "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
+                "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
+            else:
+                user_artists = re.split(',\s*', user.artists)
             
-        #     # if any of my artists are the artist of this current row, send me a text with the song name and link
-        #     if (any([artist in row.artist for artist in user_artists])):
-        #         body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
-        #         # send text message currently to me only 
-        #         client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
-        #         print("Found your song, sent a text to {}".format(user))
-        #     else:
-        #         print("New song was not good")
+            # if any of my artists are the artist of this current row, send me a text with the song name and link
+            if (any([artist in row.artist for artist in user_artists])):
+                body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
+                # send text message currently to me only 
+                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                print("Found your song, sent a text to {}".format(user))
+            else:
+                print("New song was not good")
    
 
 def twilio_client():
