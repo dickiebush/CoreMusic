@@ -76,7 +76,7 @@ def welcome_new_user(name, number):
     you a direct link to the song that will open in either your soundcloud app,\
     spotify app, or youtube app. Enjoy! ".format(name.split()[1])
 
-     client.messages.create(to = number, from_ = twilio_number, body = body)
+    client.messages.create(to = number, from_ = twilio_number, body = body)
 
 def twilio_client():
     account_sid   = "AC79432a906b5df034fa4604d80dee6079"
