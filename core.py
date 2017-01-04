@@ -37,21 +37,20 @@ def try_to_text(row):
 
         # didn't find soundcloud player, try for youtue player 
         try:
+            # find the youtube link class, then find its link attribute
+            youtube_player_html = html.fromstring(hnhh_html.content).find_class("mixtape-userInteraction-playerLink youtube-only")[0]
+            youtube_link_desktop = youtube_player_html.attrib['href']
 
-        # find the youtube link class, then find its link attribute
-        youtube_player_html = html.fromstring(hnhh_html.content).find_class("mixtape-userInteraction-playerLink youtube-only")[0]
-        youtube_link_desktop = youtube_player_html.attrib['href']
+            # create into mobile schema by substringing the youtube id
+            start = youtube_link_desktop.find("/watch?v=")
+            youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):]
 
-        # create into mobile schema by substringing the youtube id
-        start = youtube_link_desktop.find("/watch?v=")
-        youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):]
-
-        url = youtube_link_mobile
+            url = youtube_link_mobile
 
         # didn't find either, send to hnhh website 
         except:
-        url = row.url
-        
+            url = row.url
+
     with app.app_context():
 
         for user in User.query.all():
