@@ -74,7 +74,7 @@ def welcome_new_user(name, number):
     body = "Hey {}! Welcome to Core Music. We'll send you SMS text messages\
     every time one of the artists you told us about drops a new song. We'll send\
     you a direct link to the song that will open in either your soundcloud app,\
-    spotify app, or youtube app. Enjoy! ".format(name.split()[1])
+    spotify app, or youtube app. Enjoy! ".format(name.split()[0])
 
     client.messages.create(to = number, from_ = twilio_number, body = body)
 
