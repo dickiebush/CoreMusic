@@ -44,7 +44,7 @@ def try_to_text(row):
             if user.artists.lower() == 'rap':
                 user_artists = ["Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
                 "Berner", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
-                "A Boogie wit da Hoodie", "Big Sean", "Quavo", "Migos"]
+                "A Boogie wit da Hoodie", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
             else:
                 user_artists = re.split(',\s*', user.artists)
             
