@@ -57,7 +57,7 @@ def welcome():
     return(render_template('welcome.html'))
 
 @celery.task
-def welcome_new_user(name, email, number, artists):
+def new_user_text_me(name, email, number, artists):
     client = twilio_client()
     twilio_number = "+18133363411"
 
@@ -68,7 +68,7 @@ def welcome_new_user(name, email, number, artists):
     client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
 
 @celery.task
-def new_user_text_me(name, email, number):
+def welcome_new_user(name, email, number):
     pass
 
 def twilio_client():
