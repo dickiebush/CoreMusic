@@ -42,7 +42,7 @@ def signup():
             user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title())
             # text me that a new user signed up somehow asynchronously 
             new_user_text_me.delay(user.name, user.email, user.number, user.artists)
-
+            welcome_new_user.delay(user.name, user.number)
             with app.app_context():
                 db.session.add(user)
                 db.session.commit()
@@ -61,15 +61,20 @@ def new_user_text_me(name, email, number, artists):
     client = twilio_client()
     twilio_number = "+18133363411"
 
-    print("texting you about the new user")
     body = "{} just signed up. Their number is {}. Their email is {}. He likes {}".format(name, number, email, artists)
     
     # send text message currently to me only 
     client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
 
 @celery.task
-def welcome_new_user(name, email, number):
-    pass
+def welcome_new_user(name, number):
+    client = twilio_client()
+    twilio_number = "+18133363411"
+
+    body = "Hey {}! Welcome to Core Music. We'll send you SMS text messages\
+    every time one of the artists you told us about drops a new song. We'll send\
+    you a direct link to the song that will open in either your soundcloud app,\
+    spotify app, or youtube app. Enjoy! ".format(name.split()[1])
 
 def twilio_client():
     account_sid   = "AC79432a906b5df034fa4604d80dee6079"
