@@ -27,14 +27,16 @@ def try_to_text(row):
         soundcloud_url = str(requests.get(soundcloud_html.attrib['src']).content)
 
         # find substring of tracks id 
-        start = soundcloud_html.find(".com/tracks/") + len(".com/tracks/")
-        end   = soundcloud_html.find("\"", start)
-        id    = soundcloud_html[start:end]
+        start = soundcloud_url.find(".com/tracks/") + len(".com/tracks/")
+        end   = soundcloud_url.find("\"", start)
+        id    = soundcloud_url[start:end]
 
         # create url for opening in soundcloud app
         url = ("soundcloud://tracks/{}".format(id))
+
     except:
 
+        print("didnt find soundcloud player, looking for youtube")
         # didn't find soundcloud player, try for youtue player 
         try:
             # find the youtube link class, then find its link attribute
@@ -45,31 +47,36 @@ def try_to_text(row):
             start = youtube_link_desktop.find("/watch?v=")
             youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):]
 
+            print("found youtube player")
             url = youtube_link_mobile
 
         # didn't find either, send to hnhh website 
         except:
+            print("found neither, redirecting to hnhh")
             url = row.url
 
-    with app.app_context():
 
-        for user in User.query.all():
 
-            if user.artists.lower() == 'rap':
-                user_artists = ["Lil Yachty", "Travi$ Scott", "A$AP Rocky", "Kendrick Lamar", "Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
-                "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
-                "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
-            else:
-                user_artists = re.split(',\s*', user.artists)
+    print(url)
+    #with app.app_context():
+
+        # for user in User.query.all():
+
+        #     if user.artists.lower() == 'rap':
+        #         user_artists = ["Lil Yachty", "Travi$ Scott", "A$AP Rocky", "Kendrick Lamar", "Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
+        #         "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
+        #         "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
+        #     else:
+        #         user_artists = re.split(',\s*', user.artists)
             
-            # if any of my artists are the artist of this current row, send me a text with the song name and link
-            if (any([artist in row.artist for artist in user_artists])):
-                body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
-                # send text message currently to me only 
-                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
-                print("Found your song, sent a text to {}".format(user))
-            else:
-                print("New song was not good")
+        #     # if any of my artists are the artist of this current row, send me a text with the song name and link
+        #     if (any([artist in row.artist for artist in user_artists])):
+        #         body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
+        #         # send text message currently to me only 
+        #         client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+        #         print("Found your song, sent a text to {}".format(user))
+        #     else:
+        #         print("New song was not good")
    
 
 def twilio_client():
