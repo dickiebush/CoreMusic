@@ -1,3 +1,3 @@
 web gunicorn routes:app
 
-worker: celery worker —app=routes.celery
+worker: celery worker —-app=routes.celery
