@@ -20,12 +20,11 @@ def try_to_text(row):
     # open up hnhh link 
     hnhh_html = requests.get(row.url)
 
-    # parse the soundcloud player url 
+    # parse for the soundcloud player url 
     try:
-
         # find soundcloud player and extra the link it send you to
-        soundcloud_url = html.fromstring(hnhh_html.content).get_element_by_id("soundcloud_player")
-        soundcloud_html = str(requests.get(soundcloud_url.attrib['src']).content)
+        soundcloud_html = html.fromstring(hnhh_html.content).get_element_by_id("soundcloud_player")
+        soundcloud_url = str(requests.get(soundcloud_html.attrib['src']).content)
 
         # find substring of tracks id 
         start = soundcloud_html.find(".com/tracks/") + len(".com/tracks/")
@@ -35,16 +34,32 @@ def try_to_text(row):
         # create url for opening in soundcloud app
         url = ("soundcloud://tracks/{}".format(id))
     except:
-        url = row.url
 
+        # didn't find soundcloud player, try for youtue player 
+        try:
+
+        # find the youtube link class, then find its link attribute
+        youtube_player_html = html.fromstring(hnhh_html.content).find_class("mixtape-userInteraction-playerLink youtube-only")[0]
+        youtube_link_desktop = youtube_player_html.attrib['href']
+
+        # create into mobile schema by substringing the youtube id
+        start = youtube_link_desktop.find("/watch?v=")
+        youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):]
+
+        url = youtube_link_mobile
+
+        # didn't find either, send to hnhh website 
+        except:
+        url = row.url
+        
     with app.app_context():
 
         for user in User.query.all():
 
             if user.artists.lower() == 'rap':
-                user_artists = ["Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
-                "Berner", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
-                "A Boogie wit da Hoodie", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
+                user_artists = ["Lil Yachty", "Travi$ Scott", "A$AP Rocky", "Kendrick Lamar", "Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
+                "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
+                "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
             else:
                 user_artists = re.split(',\s*', user.artists)
             
