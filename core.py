@@ -12,15 +12,6 @@ import re
 #  helper functions #
 #####################
 
-def text_new_user(user):
-    client = twilio_client()
-    twilio_number = "+18133363411"
-
-    body = "{} just signed up. Their number is {}. Their email is {}".format(user.name, user.number, user.email)
-    
-    # send text message currently to me only 
-    client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
-
 def try_to_text(row):
 
     client = twilio_client()

@@ -36,7 +36,7 @@
     
                 {{ form.email.label(style="font-size:13px", class="control-label") }}
 
-                {{ form.email(placeholder="name@company.com",  class_="form-control has-error input-lg") }}
+                {{ form.email(placeholder="name@school.com",  class_="form-control has-error input-lg") }}
 
                 {% for error in form.email.errors %}
                     <p class="help-block">{{ error }}</p>
@@ -48,7 +48,7 @@
                 <div class="form-group">
                 {{ form.email.label(style="font-size:13px") }}
 
-                {{ form.email(placeholder="name@company.com",  class_="form-control input-lg")}} 
+                {{ form.email(placeholder="name@school.com",  class_="form-control input-lg")}} 
                 </div>
             {% endif %}
 
