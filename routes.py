@@ -41,7 +41,7 @@ def signup():
         else: 
             user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title())
             # text me that a new user signed up somehow asynchronously 
-            new_user_text_me.delay(user)
+            new_user_text_me.delay(user.name, user.email, user.number, user.artists)
 
             with app.app_context():
                 db.session.add(user)
@@ -57,18 +57,18 @@ def welcome():
     return(render_template('welcome.html'))
 
 @celery.task
-def welcome_new_user(user):
+def welcome_new_user(name, email, number, artists):
     client = twilio_client()
     twilio_number = "+18133363411"
 
     print("texting you about the new user")
-    body = "{} just signed up. Their number is {}. Their email is {}".format(user.name, user.number, user.email)
+    body = "{} just signed up. Their number is {}. Their email is {}. He likes {}".format(name, number, email, artists)
     
     # send text message currently to me only 
     client.messages.create(to = "+18139095372", from_ = twilio_number, body = body)
 
 @celery.task
-def new_user_text_me(user):
+def new_user_text_me(name, email, number):
     pass
 
 def twilio_client():
