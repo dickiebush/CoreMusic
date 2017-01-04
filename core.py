@@ -50,8 +50,13 @@ def try_to_text(row):
 
         for user in User.query.all():
 
-            user_artists = re.split(',\s*', user.artists)
-            print(user_artists)
+            if user.artists.lower() == 'rap':
+                user_artists = ["Young Thug", "2 Chainz", "J. Cole", "Wiz Khalifa" \
+                "Berner", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
+                "A Boogie wit da Hoodie", "Big Sean", "Quavo", "Migos"]
+            else:
+                user_artists = re.split(',\s*', user.artists)
+            
             # if any of my artists are the artist of this current row, send me a text with the song name and link
             if (any([artist in row.artist for artist in user_artists])):
                 body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
