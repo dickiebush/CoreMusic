@@ -4,7 +4,7 @@
     <main class="container container--nr">
         <div class="noauth__form-container">
             <h2> Subscribe to Core Music </h2>
-            <p class="lead"> Enter your information below</p>
+            <p class="lead"> Enter your information</p>
             <form method="POST" action="/signup">
             {{ form.hidden_tag() }}
 
@@ -52,6 +52,28 @@
                 </div>
             {% endif %}
 
+            {% if form.password.errors %}
+            
+                <div class="form-group has-error">
+    
+                {{ form.password.label(style="font-size:13px", class="control-label") }}
+
+                {{ form.password(placeholder="Password",  class_="form-control has-error input-lg") }}
+
+                {% for error in form.password.errors %}
+                    <p class="help-block">{{ error }}</p>
+                {% endfor %}
+                </div>
+            
+            {% else %}
+
+                <div class="form-group">
+                {{ form.password.label(style="font-size:13px") }}
+
+                {{ form.password(placeholder="Password",  class_="form-control input-lg") }} 
+                </div>
+            {% endif %}
+
             {% if form.number.errors %}
             
                 <div class="form-group has-error">
@@ -95,12 +117,17 @@
                 </div>
             {% endif %}
 
-            {{ form.submit(class="btn btn-primary btn-lg btn-block")}}
-
+             {{ form.submit(class="btn btn-primary btn-lg btn-block")}}
             </form>
+
+
+            <div style="padding-top:15px">
+            <strong><a href="/login" class="bold">Have an account already? Log in </a></strong>
+            </div>
+
+
             </div>
             
-
 </main>
 
 

@@ -22,12 +22,14 @@ class User(db.Model):
     name   = db.Column(db.String(150))
     number = db.Column(db.String(15), unique = True)
     artists = db.Column(db.String(250))
+    password = db.Column(db.String(20))
 
-    def __init__(self, email, name, number, artists):
-        self.email   = email
-        self.name    = name
-        self.number  = number
-        self.artists = artists
+    def __init__(self, email, name, number, artists, password):
+        self.email    = email
+        self.name     = name
+        self.number   = number
+        self.artists  = artists
+        self.password = password
 
     def __str__(self):
         return self.email

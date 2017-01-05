@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Song, User
 import os
-from forms import SignupForm
+from forms import SignupForm, LoginForm
 import requests
 from celery import Celery
 from twilio.rest import TwilioRestClient as TRC
@@ -29,8 +29,7 @@ with app.app_context():
 #from models import Song
 @app.route("/")
 def index():
-    return redirect(url_for('signup'))
-
+    return(render_template("layout.html"))
 @app.route("/signup", methods=['GET','POST'])
 def signup():
     form = SignupForm()
@@ -39,10 +38,10 @@ def signup():
         if not form.validate():
             return render_template('signup.html', form=form)
         else: 
-            user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title())
+            user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title(), form.password.data)
             # text me that a new user signed up somehow asynchronously 
-            new_user_text_me.delay(user.name, user.email, user.number, user.artists)
-            welcome_new_user.delay(user.name, user.number)
+            #new_user_text_me.delay(user.name, user.email, user.number, user.artists)
+            #welcome_new_user.delay(user.name, user.number)
             with app.app_context():
                 db.session.add(user)
                 db.session.commit()
@@ -55,6 +54,24 @@ def signup():
 @app.route("/welcome")
 def welcome():
     return(render_template('welcome.html'))
+
+@app.route("/aboutus")
+def aboutus():
+    return("describe something about us")
+
+@app.route("/settings")
+def settings():
+    pass
+
+@app.route("/login")
+def login():
+
+    form = LoginForm()
+    return render_template("login.html", form=form)
+    #login gonna be required 
+    # let them alter their information 
+
+###########################################################################
 
 @celery.task
 def new_user_text_me(name, email, number, artists):
@@ -72,7 +89,6 @@ def welcome_new_user(name, number):
     twilio_number = "+18133363411"
 
     body = "Hey {}! Welcome to Core Music. Via SMS, we'll send you direct links to every new song one of your favorite artists drops. Enjoy!".format(name.split()[0])
-    
 
     client.messages.create(to = number, from_ = twilio_number, body = body)
 
@@ -80,7 +96,6 @@ def twilio_client():
     account_sid   = "AC79432a906b5df034fa4604d80dee6079"
     auth_token    = "077422f1a2129d43670ca8b802cef484"
     return TRC(account_sid, auth_token)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

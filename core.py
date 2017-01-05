@@ -7,11 +7,9 @@ from routes import app
 import re
 #from routes import conn
 
-
 #####################
 #  helper functions #
 #####################
-
 def try_to_text(row):
 
     client = twilio_client()
@@ -87,7 +85,6 @@ def twilio_client():
 
 def run_script(db):
     
-
     base_url = "http://hotnewhiphop.com"
     
     # css/html tags for html parsing
@@ -135,7 +132,6 @@ def run_script(db):
     artists    = [artist for url,artist in zip(urls,artists) if url not in old_master_list.url.values]
     songs      = [song   for song in songs if song not in old_master_list.song_name.values]
     urls       = [url for url in urls if url not in old_master_list.url.values]
-    
 
     # new songs with only new songs we havent seen
     new_songs = pd.DataFrame({'url': urls, 'song_name': songs, 'artist':artists})

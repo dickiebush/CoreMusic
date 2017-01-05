@@ -3651,7 +3651,7 @@ tbody.collapse.in {
 
 body.noauth-body {
     min-width: 100px;
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 100px
 }
 
@@ -4044,6 +4044,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav {
   padding-left: 0;
   margin-bottom: 0;
+  margin-top:0;
   list-style: none;
 }
 .nav > li {
@@ -4236,7 +4237,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
@@ -4282,6 +4283,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-fixed-bottom .navbar-collapse {
     padding-right: 0;
     padding-left: 0;
+    pading-top:500px;
   }
 }
 .navbar-fixed-top .navbar-collapse,
@@ -4318,6 +4320,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-static-top {
   z-index: 1000;
   border-width: 0 0 1px;
+  margin-top:0px;
 }
 @media (min-width: 768px) {
   .navbar-static-top {
@@ -4350,7 +4353,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: left;
   height: 50px;
   padding: 15px 15px;
-  font-size: 18px;
+  font-size: 27px;
   line-height: 20px;
 }
 .navbar-brand:hover,
@@ -4433,6 +4436,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-nav > li {
     float: left;
+    padding-left:18px;
   }
   .navbar-nav > li > a {
     padding-top: 15px;
@@ -6829,4 +6833,6 @@ button.close {
     display: none !important;
   }
 }
+
+body { padding-bottom: 70px; }
 /*# sourceMappingURL=bootstrap.css.map */
