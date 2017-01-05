@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-
-    <link href="static/css/bootstrap.css" rel="stylesheet">
 <html>
-
+<head>  <link href="static/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
  <body class="noauth-body">
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+<nav role="navigation" class="navbar navbar-default navbar-static-top">
+    
     <div class="navbar-header">
         <a class="navbar-brand" href="/">Core Music</a>
+        <button type="button" data-toggle="collapse" data-target="#collapseHeader" class="navbar-toggle" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
     </div>
 
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="navbar-collapse collapse" id="collapseHeader">
     <ul class="nav navbar-nav navbar-right">
         <li><a href="/aboutus" style="font-size:20px">About us</a></li>
         <li><a href="/login" style="font-size:20px">Log in</a></li>
@@ -18,17 +24,15 @@
 
     </ul>
     </div>
-    </div>
+
 </nav>
 
 
-
- 
-    <center>
+  
       <h1>Core Music</h1>
       <h2>  </h2>
       <h3> </h3>
-    </center>
+    
     <nbsp></nbsp>
 
 
@@ -38,7 +42,7 @@
     {% endblock %}
    
 </body>
-
+</body>
 
 
 </html>

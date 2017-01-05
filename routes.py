@@ -35,7 +35,7 @@ def index():
         return(redirect(url_for('home')))
 
     return(render_template("layout.html"))
-
+    #return(render_template("index.html"))
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():

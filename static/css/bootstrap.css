@@ -3652,7 +3652,7 @@ tbody.collapse.in {
 body.noauth-body {
     min-width: 100px;
     padding-top: 0px;
-    padding-bottom: 100px
+    padding-bottom: 0px
 }
 
 
@@ -4283,7 +4283,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-fixed-bottom .navbar-collapse {
     padding-right: 0;
     padding-left: 0;
-    pading-top:500px;
+    
   }
 }
 .navbar-fixed-top .navbar-collapse,
@@ -4320,7 +4320,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-static-top {
   z-index: 1000;
   border-width: 0 0 1px;
-  margin-top:0px;
+  
 }
 @media (min-width: 768px) {
   .navbar-static-top {
