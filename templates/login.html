@@ -9,18 +9,18 @@
     <p class="lead"> Enter your information below</p>
     
 
-    <form method="POST" action="/signup">
+    <form method="POST" action="/login">
             {{ form.hidden_tag() }}
 
-    {% if form.email.errors %}
+    {% if form.number.errors %}
             
                 <div class="form-group has-error">
     
-                {{ form.email.label(style="font-size:13px", class="control-label") }}
+                {{ form.number.label(style="font-size:13px", class="control-label") }}
 
-                {{ form.email(placeholder="name@school.com",  class_="form-control has-error input-lg") }}
+                {{ form.number(placeholder="8135555555",  class_="form-control has-error input-lg") }}
 
-                {% for error in form.email.errors %}
+                {% for error in form.number.errors %}
                     <p class="help-block">{{ error }}</p>
                 {% endfor %}
                 </div>
@@ -28,9 +28,9 @@
             {% else %}
 
                 <div class="form-group">
-                {{ form.email.label(style="font-size:13px") }}
+                {{ form.number.label(style="font-size:13px") }}
 
-                {{ form.email(placeholder="name@school.com",  class_="form-control input-lg")}} 
+                {{ form.number(placeholder="8135555555",  class_="form-control input-lg")}} 
                 </div>
     {% endif %}
 

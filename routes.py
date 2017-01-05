@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from models import db, Song, User
 import os
 from forms import SignupForm, LoginForm
@@ -29,10 +29,22 @@ with app.app_context():
 #from models import Song
 @app.route("/")
 def index():
+
+    # if user is logged in send to home page
+    if 'number' in session:
+        return(redirect(url_for('home')))
+        
     return(render_template("layout.html"))
+
+
+
 @app.route("/signup", methods=['GET','POST'])
 def signup():
     form = SignupForm()
+
+    # if user is logged in, go to home page 
+    if 'number' in session:
+        return redirect(url_for("home"))
 
     if request.method == 'POST':
         if not form.validate():
@@ -46,10 +58,50 @@ def signup():
                 db.session.add(user)
                 db.session.commit()
 
+            session['number'] = user.number
             return redirect(url_for('welcome'))
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
 
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+
+    # if user is logged in, go to homepage
+    if 'number' in session:
+        return redirect(url_for("home"))
+
+    form = LoginForm()
+
+    if request.method == 'POST':
+        if not form.validate():
+            return render_template('login.html', form=form)
+        else:
+            # create session
+            session['number'] = form.number.data
+            # send them to home page
+            return(redirect(url_for('home')))
+    return render_template("login.html", form=form)
+    #login gonna be required 
+    # let them alter their information 
+
+@app.route("/home")
+def home():
+
+    if 'number' not in session:
+        return redirect(url_for("login"))
+
+    return("<a href=\"/logout\" class=\"btn btn-default btn-primary navbar-btn\" style=\"font-size:17px\">Log out</a>")
+
+@app.route("/logout")
+def logout():
+
+    # if not logged in cant log out
+    if 'number' not in session:
+        return redirect(url_for("login"))
+
+    session.pop('number', None)
+
+    return(redirect(url_for('login')))
 # handle that you cant access this without being logged in 
 @app.route("/welcome")
 def welcome():
@@ -62,15 +114,6 @@ def aboutus():
 @app.route("/settings")
 def settings():
     pass
-
-@app.route("/login")
-def login():
-
-    form = LoginForm()
-    return render_template("login.html", form=form)
-    #login gonna be required 
-    # let them alter their information 
-
 ###########################################################################
 
 @celery.task
