@@ -4060,6 +4060,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   display: block;
   padding: 10px 15px;
+  line-height: 40px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -4162,9 +4163,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-pills > li {
   float: left;
+  line-height:40px;
 }
 .nav-pills > li > a {
   border-radius: 4px;
+  line-height:40px;
 }
 .nav-pills > li + li {
   margin-left: 2px;
@@ -4174,6 +4177,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:focus {
   color: #fff;
   background-color: #337ab7;
+  line-height:40px;
 }
 .nav-stacked > li {
   float: none;
