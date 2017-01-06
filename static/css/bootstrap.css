@@ -3176,6 +3176,11 @@ fieldset[disabled] .btn-default.focus {
   background-color: #286090;
   border-color: #204d74;
 }
+
+.btn-primary-outline {
+  background-color: transparent;
+  border-color: #fff;
+}
 .btn-primary:active:hover,
 .btn-primary.active:hover,
 .open > .dropdown-toggle.btn-primary:hover,
@@ -4236,7 +4241,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 75px;
   margin-bottom: 0px;
   border: 1px solid transparent;
 }
@@ -4283,7 +4288,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-fixed-bottom .navbar-collapse {
     padding-right: 0;
     padding-left: 0;
-    
+   
   }
 }
 .navbar-fixed-top .navbar-collapse,
@@ -4320,7 +4325,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-static-top {
   z-index: 1000;
   border-width: 0 0 1px;
-  
+  margin-top:0px;
 }
 @media (min-width: 768px) {
   .navbar-static-top {
@@ -4354,7 +4359,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   height: 50px;
   padding: 15px 15px;
   font-size: 27px;
-  line-height: 20px;
+  line-height:40px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -4402,9 +4407,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin: 7.5px -15px;
 }
 .navbar-nav > li > a {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  line-height: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height:40px;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
@@ -4422,7 +4427,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     padding: 5px 15px 5px 25px;
   }
   .navbar-nav .open .dropdown-menu > li > a {
-    line-height: 20px;
+    line-height: 40px;
   }
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4572,7 +4577,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
+  background-color: #ffffff;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
@@ -5040,6 +5045,7 @@ a.badge:focus {
   margin-bottom: 30px;
   color: inherit;
   background-color: #eee;
+
 }
 .jumbotron h1,
 .jumbotron .h1 {

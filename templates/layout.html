@@ -2,12 +2,12 @@
 <html>
 <head>  <link href="static/css/bootstrap.css" rel="stylesheet">
 </head>
-<body>
+
  <body class="noauth-body">
 <nav role="navigation" class="navbar navbar-default navbar-static-top">
-    
+    <div class="container">
     <div class="navbar-header">
-        <a class="navbar-brand" href="/">Core Music</a>
+        <a class="navbar-brand" style="font-size:40px" href="/">Core Music</a>
         <button type="button" data-toggle="collapse" data-target="#collapseHeader" class="navbar-toggle" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -18,31 +18,24 @@
 
     <div class="navbar-collapse collapse" id="collapseHeader">
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/aboutus" style="font-size:20px">About us</a></li>
+        <li><a href="/aboutus" style="font-size:20px;">About us</a></li>
         <li><a href="/login" style="font-size:20px">Log in</a></li>
-        <li><div><a href="/signup" class="btn btn-default btn-primary navbar-btn" style="font-size:17px">Sign up</a></div></li>
+        <li><a href="/signup" style="font-size:20px;">Sign up</a></li>
 
     </ul>
     </div>
-
+    </div>
 </nav>
 
 
-  
-      <h1>Core Music</h1>
-      <h2>  </h2>
-      <h3> </h3>
-    
-    <nbsp></nbsp>
-
-
-
-
 {% block content %}
-    {% endblock %}
+{% endblock %}
    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="static/js/bootstrap.min.js"></script>
 </body>
-</body>
+
 
 
 </html>

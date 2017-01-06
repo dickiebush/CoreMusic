@@ -34,7 +34,8 @@ def index():
     if 'number' in session:
         return(redirect(url_for('home')))
 
-    return(render_template("layout.html"))
+    print(url_for('static', filename='img/warren.jpg'))
+    return(render_template("index.html"))
     #return(render_template("index.html"))
 
 @app.route("/signup", methods=['GET','POST'])
