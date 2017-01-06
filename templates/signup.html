@@ -3,12 +3,13 @@
 {% block content %}
 
    <center>  
-      <h1>Core Music</h1>
+     <h1 style="color:white">Core Music</h1>
       <h2>  </h2>
       <h3> </h3>
     </center>
     <nbsp></nbsp>
     
+<body style="background-color:#7f8c8d">
     <main class="container container--nr">
         <div class="noauth__form-container">
             <h2> Subscribe to Core Music </h2>
@@ -125,18 +126,21 @@
                 </div>
             {% endif %}
 
-             {{ form.submit(class="btn btn-primary btn-lg btn-block")}}
+             <div class="form-group">
+        {{ form.submit(style="border-color:transparent; background-color:#7f8c8d", class="btn btn-primary btn-lg btn-block")}}
+        </div>
             </form>
 
 
             <div style="padding-top:15px">
-            <strong><a href="/login" class="bold">Have an account already? Log in </a></strong>
+            <strong><a href="/login" style="color:#7f8c8d" class="bold">Have an account already? Log in </a></strong>
             </div>
 
 
-            </div>
-            
+    
+        </div>
+         
 </main>
-
+</body>
 
 {% endblock %}
