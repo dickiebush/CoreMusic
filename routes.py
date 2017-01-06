@@ -22,6 +22,7 @@ app.secret_key = "development_key"
 
 db.init_app(app)
 
+# initialize tables 
 with app.app_context():
     db.create_all()
     db.session.commit()
@@ -34,7 +35,6 @@ def index():
     if 'number' in session:
         return(redirect(url_for('home')))
 
-    print(url_for('static', filename='img/warren.jpg'))
     return(render_template("index.html"))
     #return(render_template("index.html"))
 
@@ -102,6 +102,7 @@ def logout():
     session.pop('number', None)
 
     return(redirect(url_for('login')))
+
 # handle that you cant access this without being logged in 
 @app.route("/welcome")
 def welcome():
@@ -109,7 +110,8 @@ def welcome():
 
 @app.route("/aboutus")
 def aboutus():
-    return("describe something about us")
+    return(render_template("aboutus.html"))
+
 
 @app.route("/settings")
 def settings():
