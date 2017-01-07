@@ -3676,7 +3676,7 @@ body.noauth-body {
 
   .noauth__form-container {
       width:100vw;
-      position:fixed;
+      position:relative;
       
 }
 }
