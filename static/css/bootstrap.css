@@ -3680,8 +3680,7 @@ body.noauth-body {
   .noauth__form-container {
       width:100vw;
       position:relative;
-      margin-bottom: 150px;
-
+      margin-bottom:250px;
 }
 }
 
