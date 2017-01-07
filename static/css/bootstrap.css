@@ -3666,7 +3666,7 @@ body.noauth-body {
     padding: 25px 40px;
     margin-right: auto;
     margin-left: auto;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     background-color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25)
 }
@@ -3675,8 +3675,8 @@ body.noauth-body {
 @media only screen and (max-device-width: 736px){ 
 
   .noauth__form-container {
-      
       width:100vw;
+      margin-bottom:100px;
 }
 }
 
@@ -3916,7 +3916,7 @@ body {
 .input-group .form-control:focus {
   z-index: 3;
 }
-.input-group-lg > .form-control,
+.input-group-lg > .n,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
   height: 46px;
