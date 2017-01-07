@@ -3675,6 +3675,7 @@ body.noauth-body {
 @media only screen and (max-device-width: 736px){ 
 
   .noauth__form-container {
+      position:absolute;
       width:100vw;
 }
 }
