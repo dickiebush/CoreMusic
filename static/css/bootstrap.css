@@ -3658,7 +3658,7 @@ tbody.collapse.in {
 body.noauth-body {
     min-width: 100px;
     padding-top: 0px;
-    padding-bottom: 0px
+
 }
 
 .noauth__form-container {
@@ -3668,7 +3668,7 @@ body.noauth-body {
     margin-left: auto;
     margin-bottom: 50px;
     background-color: #fff;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25)
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25);
 }
 
 /* Portrait and Landscape */
@@ -3676,7 +3676,8 @@ body.noauth-body {
 
   .noauth__form-container {
       width:100vw;
-      margin-bottom:100px;
+      position:fixed;
+      
 }
 }
 
