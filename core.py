@@ -43,7 +43,8 @@ def try_to_text(row):
 
             # create into mobile schema by substringing the youtube id
             start = youtube_link_desktop.find("/watch?v=")
-            youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):]
+            # 11 is the length of the youtube code 
+            youtube_link_mobile = "youtube://" + youtube_link_desktop[start+len("/watch?v="):start+11+len("/watch?v=")]
 
             print("found youtube player")
             url = youtube_link_mobile
@@ -88,22 +89,24 @@ def run_script(db):
     base_url = "http://hotnewhiphop.com"
     
     # css/html tags for html parsing
-    artist_tag = "gridItem-trackInfo-artist"
-    song_tag   = "gridItem-trackInfo-title"
-    url_tag    = "gridItem-cover-anchor"
+    artist_tag = "grid-item-artists"
+    song_tag   = "grid-item-title"
+    url_tag    = "cover-anchor"
 
     # read in old master list csv file
     url_html = requests.get(base_url + "/songs")
 
     # call from_string function to create into parsable tree 
     # then find all elements with the correct tags
+
     artists_tree = html.fromstring(url_html.content).find_class(artist_tag)
     song_tree    = html.fromstring(url_html.content).find_class(song_tag)
     url_tree     = html.fromstring(url_html.content).find_class(url_tag)
 
+
     # extract text_content() for all elements of trees
     artists = [artist.text_content() for artist in artists_tree]
-    songs   = [song.text_content()   for song   in song_tree]
+    songs   = [song.text_content().strip()   for song   in song_tree]
     urls    = [url.attrib["href"]    for url    in url_tree]
 
     # remove all nbsp; for all artists, normalize all "Feat." into '&'
@@ -121,6 +124,7 @@ def run_script(db):
         # read in all songs we have already texted about
         old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
+    
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
@@ -138,7 +142,8 @@ def run_script(db):
 
     # send texts for all those songs
     if len(new_songs > 0):
-        new_songs.apply(lambda x: try_to_text(x), axis = 1)
+        pass
+        #new_songs.apply(lambda x: try_to_text(x), axis = 1)
     else:
         print("We have already updated all songs")
 

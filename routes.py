@@ -137,6 +137,9 @@ def welcome_new_user(name, number):
 
     client.messages.create(to = number, from_ = twilio_number, body = body)
 
+
+    body = "Also, the links we send open Spotify, Soundcloud, and YouTube directly on your phone. Make sure you have these downloaded or else they won't work!"
+    client.messages.create(to = number, from_ = twilio_number, body = body)
 def twilio_client():
     account_sid   = "AC79432a906b5df034fa4604d80dee6079"
     auth_token    = "077422f1a2129d43670ca8b802cef484"
