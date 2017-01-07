@@ -3662,6 +3662,7 @@ body.noauth-body {
 }
 
 .noauth__form-container {
+  min-height:500px;
     width:500px;
     padding: 25px 40px;
     margin-right: auto;
