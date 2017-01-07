@@ -47,8 +47,8 @@ def signup():
         else: 
             user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title(), form.password.data)
             # text me that a new user signed up somehow asynchronously 
-            #new_user_text_me.delay(user.name, user.email, user.number, user.artists)
-            #welcome_new_user.delay(user.name, user.number)
+            new_user_text_me.delay(user.name, user.email, user.number, user.artists)
+            welcome_new_user.delay(user.name, user.number)
             with app.app_context():
                 #db.session.add(user)
                 #db.session.commit()

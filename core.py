@@ -143,7 +143,7 @@ def run_script(db):
     # send texts for all those songs
     if len(new_songs > 0):
         pass
-        #new_songs.apply(lambda x: try_to_text(x), axis = 1)
+        new_songs.apply(lambda x: try_to_text(x), axis = 1)
     else:
         print("We have already updated all songs")
 
