@@ -2451,7 +2451,6 @@ table th[class*="col-"] {
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
-    overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;
   }
@@ -3664,7 +3663,7 @@ body.noauth-body {
 }
 
 .noauth__form-container {
-  min-height:500px;
+    min-height:500px;
     width:500px;
     padding: 25px 40px;
     margin-right: auto;
@@ -3679,7 +3678,8 @@ body.noauth-body {
 
   .noauth__form-container {
       width:100vw;
-      position:relative;
+      height:100vh;
+      position:absolute;
       
 }
 }
