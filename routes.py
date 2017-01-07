@@ -30,11 +30,6 @@ with app.app_context():
 
 @app.route("/")
 def index():
-
-    # if user is logged in send to home page
-    if 'number' in session:
-        return(redirect(url_for('home')))
-
     return(render_template("index.html"))
     #return(render_template("index.html"))
 
@@ -52,13 +47,14 @@ def signup():
         else: 
             user = User(form.email.data.lower(), form.name.data.title(), form.number.data, form.artists.data.title(), form.password.data)
             # text me that a new user signed up somehow asynchronously 
-            new_user_text_me.delay(user.name, user.email, user.number, user.artists)
-            welcome_new_user.delay(user.name, user.number)
+            #new_user_text_me.delay(user.name, user.email, user.number, user.artists)
+            #welcome_new_user.delay(user.name, user.number)
             with app.app_context():
-                db.session.add(user)
-                db.session.commit()
+                #db.session.add(user)
+                #db.session.commit()
+                pass
 
-            session['number'] = user.number
+            session['number'] = form.number.data
             return redirect(url_for('welcome'))
     elif request.method == 'GET':
         return render_template('signup.html', form=form)
