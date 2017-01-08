@@ -27,7 +27,6 @@ with app.app_context():
     db.create_all()
     db.session.commit()
 
-
 @app.route("/")
 def index():
     return(render_template("index.html"))
@@ -77,8 +76,10 @@ def login():
             # send them to home page
             return(redirect(url_for('home')))
     return render_template("login.html", form=form)
-    #login gonna be required 
-    # let them alter their information 
+
+@app.route("/aboutus")
+def aboutus():
+    return(render_template("aboutus.html"))
 
 @app.route("/home")
 def home():
@@ -86,31 +87,32 @@ def home():
     if 'number' not in session:
         return redirect(url_for("login"))
 
-    return("<a href=\"/logout\" class=\"btn btn-default btn-primary navbar-btn\" style=\"font-size:17px\">Log out</a>")
+    return(render_template("home.html"))
 
 @app.route("/logout")
 def logout():
-
     # if not logged in cant log out
     if 'number' not in session:
         return redirect(url_for("login"))
 
     session.pop('number', None)
-
     return(redirect(url_for('login')))
 
 # handle that you cant access this without being logged in 
 @app.route("/welcome")
 def welcome():
+
+    if 'number' not in session:
+        return redirect(url_for("login"))
+
     return(render_template('welcome.html'))
-
-@app.route("/aboutus")
-def aboutus():
-    return(render_template("aboutus.html"))
-
 
 @app.route("/settings")
 def settings():
+    pass
+
+@app.route("/contactus")
+def contactus():
     pass
 ###########################################################################
 
