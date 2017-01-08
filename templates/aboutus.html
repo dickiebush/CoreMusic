@@ -13,7 +13,7 @@
     <!-- Example row of columns -->
       <div container style="padding-top:25px" class="row">
         <center>
-        <div class="col-md-4" style="padding-bottom:50px">
+        <div class="col-md-4" style="padding-bottom:38px">
         
           <h2 style="color:white;">Step 1: Subscribe to Core Music </h2>
         <h4 style="color:white;">You give us your phone number, email, and a list of your favorite music artists</h4>  
@@ -23,8 +23,8 @@
         </div>
         <div class="col-md-4" style="padding-bottom:100px">
 
-        <h2 style="color:white;">Step 2: Receive text messages when your favorite artists release new songs </h2>
-           <h4 style="color:white"> We send you links that open the songs directly in Spotify, Soundcloud, and Youtube, all from a text message!</h4>
+        <h2 style="color:white;">Step 2: Receive text messages the moment your favorite artists release new songs </h2>
+           <h4 style="color:white"> We send you links that open the new song directly in Spotify, Soundcloud, and Youtube, all from a text message!</h4>
           <img style="width:200px; height:400px"src={{ url_for('static', filename="img/step2.png")}}>
 
        </div>
@@ -38,6 +38,12 @@
         </center>
       </div>
 
+      <div>
+      <center>
+      <h2 style="color:white"> Got it? Subscribe below! </h2>
+      <p style="padding-top:10px;"><a class="btn btn-primary-outline btn-lg" href="/signup" role="button" style="color:white; background-color:#7f8c8d;">Subscribe</a></p>
+      </center>
+      </div>
 </body>
 
 {% endblock %}
