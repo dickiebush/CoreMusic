@@ -33,6 +33,12 @@ class SignupForm(FlaskForm):
 
         # made it through
         return True
+
+#class EditForm(FlaskForm)
+
+
+
+
 class LoginForm(FlaskForm):
     number  = StringField('Phone number:', validators=[validators.DataRequired("A valid 10 digit phone number is required")])
     password = PasswordField('Password:', validators=[validators.DataRequired("Please enter your password")])

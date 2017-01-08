@@ -63,13 +63,16 @@ def try_to_text(row):
                 "Berner", "Future", "Kanye West", "Gucci Mane", "Drake", "Juicy J", "Post Malone", "Kodak Black",
                 "A Boogie wit da Hoodie","21 Savage", "Mac Miller", "Kyle", "Big Sean", "Quavo", "Migos"]
             else:
-                user_artists = re.split(',\s*', user.artists)
+                user_artists = re.split(',\s*', user.artists.rstrip().rstrip(','))
             
             # if any of my artists are the artist of this current row, send me a text with the song name and link
             if (any([artist in row.artist for artist in user_artists])):
                 body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
                 # send text message currently to me only 
-                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                print(row.artist)
+                print(user_artists)
+                print([artist in row.artist for artist in user_artists])
+                #client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
                 print("Found your song, sent a text to {}".format(user))
             else:
                 print("New song was not good")
@@ -142,7 +145,6 @@ def run_script(db):
 
     # send texts for all those songs
     if len(new_songs > 0):
-        pass
         new_songs.apply(lambda x: try_to_text(x), axis = 1)
     else:
         print("We have already updated all songs")
