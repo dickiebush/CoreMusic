@@ -1,0 +1,63 @@
+{% extends "user_layout.html" %}
+
+{% block content %}
+
+ <center>  
+      <h1 style="color:white">Core Music</h1>
+      <h2>  </h2>
+      <h3> </h3>
+    </center>
+    <nbsp></nbsp>
+
+<body style="background-color:#7f8c8d">
+
+    <div class="noauth__form-container", style="height:200px">
+
+    <h2> Edit my info</h2>
+    <p class="lead"> Enter the artists you subscribe to below</p>
+    
+    <form method="POST" action="/settings">
+            {{ form.hidden_tag() }}
+
+             {% if form.artists.errors %}
+            
+                <div class="form-group has-error">
+    
+                {{ form.artists.label(style="font-size:13px", class="control-label") }}
+
+                {{ form.artists(class_="form-control has-error input-lg") }}
+
+                {% for error in form.artists.errors %}
+                    <p class="help-block">{{ error }}</p>
+                {% endfor %}
+                </div>
+            
+            {% elif updated %}
+
+
+                <div class="form-group has-success">
+                {{ form.artists.label("Your artists were updated successfully!", style="font-size:20px") }}
+
+                {{ form.artists(class_="form-control has-error input-lg") }} 
+                </div>
+
+            {% else %}
+
+                <div class="form-group">
+                {{ form.artists.label(style="font-size:13px") }}
+
+                {{ form.artists(class_="form-control has-error input-lg") }} 
+                </div>
+
+            {% endif %}
+
+             <div class="form-group">
+        {{ form.submit(style="border-color:transparent; background-color:#7f8c8d", class="btn btn-primary btn-lg btn-block")}}
+        </div>
+
+    </form>
+    </div>
+    </body>
+
+
+{% endblock %}

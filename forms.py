@@ -30,14 +30,12 @@ class SignupForm(FlaskForm):
             if user is not None:
                 self.email.errors.append("This email is already subscribed. Log in below")
                 return False
-
         # made it through
         return True
 
-#class EditForm(FlaskForm)
-
-
-
+class EditForm(FlaskForm):
+    artists = TextAreaField('Edit the artists you want us to text you about below', validators=[validators.DataRequired("Please enter your favorite artists")])
+    submit = SubmitField("Confirm edit")
 
 class LoginForm(FlaskForm):
     number  = StringField('Phone number:', validators=[validators.DataRequired("A valid 10 digit phone number is required")])

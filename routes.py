@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from models import db, Song, User
 import os
-from forms import SignupForm, LoginForm
+from forms import SignupForm, LoginForm, EditForm
 import requests
 from celery import Celery
 from twilio.rest import TwilioRestClient as TRC
@@ -49,8 +49,8 @@ def signup():
             new_user_text_me.delay(user.name, user.email, user.number, user.artists)
             welcome_new_user.delay(user.name, user.number)
             with app.app_context():
-                #db.session.add(user)
-                #db.session.commit()
+                db.session.add(user)
+                db.session.commit()
                 pass
 
             session['number'] = form.number.data
@@ -68,7 +68,7 @@ def login():
     form = LoginForm()
 
     if request.method == 'POST':
-        if not form.validate():
+        if not form.validate_on_submit():
             return render_template('login.html', form=form)
         else:
             # create session
@@ -107,13 +107,48 @@ def welcome():
 
     return(render_template('welcome.html'))
 
-@app.route("/settings")
+@app.route("/settings", methods=['GET', 'POST'])
 def settings():
-    pass
+    
+    form = EditForm()
+
+    # if they are loading the page
+    if request.method == 'GET':
+    
+        # find their artists to prepopulate
+        user = User.query.filter_by(number=session['number']).first()
+
+        form.artists.data = user.artists
+
+        return (render_template("settings.html", form=form))
+
+    else: # request.method == 'POST'
+        # if they update artists, update that users artists
+        if form.validate_on_submit():
+
+
+            # find their artists to prepopulate
+            user = User.query.filter_by(number=session['number']).first()
+
+            # return them refresh that page with the new form
+            user.artists = form.artists.data
+            
+            with app.app_context():
+                db.session.commit()
+
+            return (render_template("settings.html", form=form, updated=True))
+
+        else:
+
+            # error, return template
+            return (render_template("settings.html", form=form))
+
+
+
 
 @app.route("/contactus")
 def contactus():
-    pass
+    return(render_template("home.html"))
 ###########################################################################
 
 @celery.task
