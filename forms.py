@@ -9,7 +9,7 @@ class SignupForm(FlaskForm):
     number = StringField('Phone Number:', validators=[validators.DataRequired("A valid 10-digit phone number is required"), \
                          validators.Length(10,10,"Please enter a 10 digit phone number"), \
                          validators.Regexp('[0-9]{10}')])
-    artists = TextAreaField('Enter your favorite music artists, separated by commas', validators=[validators.DataRequired("Please enter your favorite artists")])
+    artists = TextAreaField('Enter your favorite 5 to 10 favorite music artists, separated by commas', validators=[validators.DataRequired("Please enter your favorite artists")])
     password = PasswordField('Password:', validators=[validators.Length(6,15,"Password must be six or more characters")])
     submit = SubmitField("Subscribe")
 

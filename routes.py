@@ -143,9 +143,6 @@ def settings():
             # error, return template
             return (render_template("settings.html", form=form))
 
-
-
-
 @app.route("/contactus")
 def contactus():
     return(render_template("home.html"))

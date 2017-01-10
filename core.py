@@ -69,10 +69,8 @@ def try_to_text(row):
             if (any([artist in row.artist for artist in user_artists])):
                 body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
                 # send text message currently to me only 
-                print(row.artist)
-                print(user_artists)
-                print([artist in row.artist for artist in user_artists])
-                #client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                
+                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
                 print("Found your song, sent a text to {}".format(user))
             else:
                 print("New song was not good")
@@ -132,8 +130,6 @@ def run_script(db):
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
 
-   #print(new_master_list)
-    #print(old_master_list)
     # remove all songs we have already seen previously 
     ## this needs to remove the corresponding artist and song and URL 
     artists    = [artist for url,artist in zip(urls,artists) if url not in old_master_list.url.values]
