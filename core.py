@@ -67,10 +67,13 @@ def try_to_text(row):
             
             # if any of my artists are the artist of this current row, send me a text with the song name and link
             if (any([artist in row.artist for artist in user_artists])):
-                body = "{} dropped a new song called {}, heres the link {}".format(row.artist, row.song_name, url)
+
+                this_artist = [artist for artist in user_artists if artist in row.artist]
+
+                body = "{} dropped a new song called {}, heres the link {}".format(this_artist[0], row.song_name, url)
                 # send text message currently to me only 
                 
-                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                #client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
                 print("Found your song, sent a text to {}".format(user))
             else:
                 print("New song was not good")
@@ -125,7 +128,6 @@ def run_script(db):
         # read in all songs we have already texted about
         old_master_list = pd.read_sql("select * from songs", con=db.engine)
 
-    
     #old_master_list = pd.read_csv("master_list.csv", encoding='latin1')
     # create data frame of all songs on website, as these are latest songs we've analyzed 
     new_master_list = pd.DataFrame({'url':urls, 'song_name': songs,  'artist': artists})
@@ -133,7 +135,7 @@ def run_script(db):
     # remove all songs we have already seen previously 
     ## this needs to remove the corresponding artist and song and URL 
     artists    = [artist for url,artist in zip(urls,artists) if url not in old_master_list.url.values]
-    songs      = [song   for song in songs if song not in old_master_list.song_name.values]
+    songs      = [song   for url,song   in zip(urls,songs) if url not in old_master_list.url.values]
     urls       = [url for url in urls if url not in old_master_list.url.values]
 
     # new songs with only new songs we havent seen
