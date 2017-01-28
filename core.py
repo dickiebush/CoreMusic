@@ -73,7 +73,7 @@ def try_to_text(row):
                 body = "{} dropped a new song called {}, heres the link {}".format(this_artist[0], row.song_name, url)
                 # send text message currently to me only 
                 
-                #client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
+                client.messages.create(to = "+1{}".format(user.number), from_ = twilio_number, body = body)
                 print("Found your song, sent a text to {}".format(user))
             else:
                 print("New song was not good")
