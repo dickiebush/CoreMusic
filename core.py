@@ -27,11 +27,16 @@ def try_to_text(row):
         # find substring of tracks id 
         start = soundcloud_url.find(".com/tracks/") + len(".com/tracks/")
         end   = soundcloud_url.find("\"", start)
-        id    = soundcloud_url[start:end]
 
-        # create url for opening in soundcloud app
-        url = ("soundcloud://tracks/{}".format(id))
-
+        # if for some reason it couldnt find the track number (not sure)
+        if start == -1:
+            url = row.url
+        else:
+            # otherwise we are fine, proceed with url scheme 
+            id  = soundcloud_url[start:end]
+            # create url for opening in soundcloud app
+            url = ("soundcloud://tracks/{}".format(id))
+            
     except:
 
         print("didnt find soundcloud player, looking for youtube")
@@ -115,7 +120,7 @@ def run_script(db):
 
     # remove all nbsp; for all artists, normalize all "Feat." into '&'
     artists = [artist.replace(u"\xa0", u" ") for artist in artists]
-    artists = [artist.replace("Feat.", " & ") for artist in artists]
+    artists = [artist.replace("Feat.", "&") for artist in artists]
 
     # remove all nbsp; for songs
     songs = [song.replace(u"\xa0", u" ") for song in songs]
