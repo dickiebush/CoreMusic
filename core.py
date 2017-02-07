@@ -26,7 +26,7 @@ def try_to_text(row):
 
         # find substring of tracks id 
         start = soundcloud_url.find(".com/tracks/") + len(".com/tracks/")
-        #end   = soundcloud_url.find("\"", start)
+        end   = soundcloud_url.find("\"", start)
         num = len("305881721")
                    
         # if for some reason it couldnt find the track number (not sure)
@@ -34,9 +34,14 @@ def try_to_text(row):
             url = row.url
         else:
             # otherwise we are fine, proceed with url scheme 
-            id  = soundcloud_url[start:(start + num)]
+            id  = soundcloud_url[start:end]
             # create url for opening in soundcloud app
-            url = ("soundcloud://tracks/{}".format(id))
+
+            # if it had a secret key just send the url to hnhh
+            if len(id) > num:
+                url = row.url
+            else:
+                url = ("soundcloud://tracks/{}".format(id))
             
     except:
 
@@ -113,7 +118,6 @@ def run_script(db):
     song_tree    = html.fromstring(url_html.content).find_class(song_tag)
     url_tree     = html.fromstring(url_html.content).find_class(url_tag)
 
-
     # extract text_content() for all elements of trees
     artists = [artist.text_content() for artist in artists_tree]
     songs   = [song.text_content().strip()   for song   in song_tree]
@@ -159,6 +163,6 @@ def run_script(db):
     # write to CSV for later iteration 
     #new_master_list.to_csv("master_list.csv")
     with app.app_context():
-        #new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
+        new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
 
 run_script(db)
