@@ -26,14 +26,15 @@ def try_to_text(row):
 
         # find substring of tracks id 
         start = soundcloud_url.find(".com/tracks/") + len(".com/tracks/")
-        end   = soundcloud_url.find("\"", start)
-
+        #end   = soundcloud_url.find("\"", start)
+        num = len("305881721")
+                   
         # if for some reason it couldnt find the track number (not sure)
         if start == -1:
             url = row.url
         else:
             # otherwise we are fine, proceed with url scheme 
-            id  = soundcloud_url[start:end]
+            id  = soundcloud_url[start:(start + num)]
             # create url for opening in soundcloud app
             url = ("soundcloud://tracks/{}".format(id))
             
