@@ -163,6 +163,6 @@ def run_script(db):
     # write to CSV for later iteration 
     #new_master_list.to_csv("master_list.csv")
     with app.app_context():
-        new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
+        #new_master_list.to_sql(name="songs",con= db.engine, if_exists='replace')
 
 run_script(db)
